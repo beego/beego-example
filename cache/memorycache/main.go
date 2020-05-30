@@ -15,24 +15,39 @@
 package main
 
 import (
-	"io/ioutil"
+	"time"
 
-	"github.com/astaxie/beego/httplib"
+	"github.com/astaxie/beego/cache"
+	_ "github.com/astaxie/beego/cache/memcache"
 	"github.com/astaxie/beego/logs"
 )
 
 func main() {
-	// Upload File
-	fileReq := httplib.Post("http://beego.me/")
-	fileReq.Param("username", "astaxie")
-	fileReq.Param("password", "123456")
-	fileReq.PostFile("uploadfile", "hello.txt")
-
-	// Bigfile
-	bigFileReq := httplib.Post("http://beego.me/")
-	bt, err := ioutil.ReadFile("hello.txt")
+	// create memory
+	bm, err := cache.NewCache("memcache", `{"conn":"127.0.0.1:11211"}`)
 	if err != nil {
 		logs.Error(err)
 	}
-	bigFileReq.Body(bt)
+
+	// put
+	isPut := bm.Put("name", "beego", time.Second*10)
+	logs.Info(isPut)
+
+	isPut = bm.Put("hello", "world", time.Second*10)
+	logs.Info(isPut)
+
+	// get
+	result := bm.Get("name")
+	logs.Info(result)
+
+	result = bm.GetMulti([]string{"name", "hello"})
+	logs.Info(result)
+
+	// isExist
+	isExist := bm.IsExist("name")
+	logs.Info(isExist)
+
+	// delete
+	isDelete := bm.Delete("name")
+	logs.Info(isDelete)
 }
