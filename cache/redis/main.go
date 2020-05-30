@@ -15,24 +15,41 @@
 package main
 
 import (
-	"io/ioutil"
+	"time"
 
-	"github.com/astaxie/beego/httplib"
+	"github.com/astaxie/beego/cache"
+	_ "github.com/astaxie/beego/cache/redis"
 	"github.com/astaxie/beego/logs"
 )
 
 func main() {
-	// Upload File
-	fileReq := httplib.Post("http://beego.me/")
-	fileReq.Param("username", "astaxie")
-	fileReq.Param("password", "123456")
-	fileReq.PostFile("uploadfile", "hello.txt")
-
-	// Bigfile
-	bigFileReq := httplib.Post("http://beego.me/")
-	bt, err := ioutil.ReadFile("hello.txt")
+	// create cache
+	bm, err := cache.NewCache("redis", `{"key":"default", "conn":":6379", "password":"123456", "dbNum":"0"}`)
 	if err != nil {
 		logs.Error(err)
 	}
-	bigFileReq.Body(bt)
+
+	// put
+	isPut := bm.Put("astaxie", 1, time.Second*10)
+	logs.Info(isPut)
+
+	isPut = bm.Put("hello", "world", time.Second*10)
+	logs.Info(isPut)
+
+	// get
+	result := bm.Get("astaxie")
+	logs.Info(string(result.([]byte)))
+
+	multiResult := bm.GetMulti([]string{"astaxie", "hello"})
+	for i := range multiResult {
+		logs.Info(string(multiResult[i].([]byte)))
+	}
+
+	// isExist
+	isExist := bm.IsExist("astaxie")
+	logs.Info(isExist)
+
+	// delete
+	isDelete := bm.Delete("astaxie")
+	logs.Info(isDelete)
 }

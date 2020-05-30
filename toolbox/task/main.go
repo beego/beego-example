@@ -15,24 +15,29 @@
 package main
 
 import (
-	"io/ioutil"
+	"time"
 
-	"github.com/astaxie/beego/httplib"
 	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/toolbox"
 )
 
 func main() {
-	// Upload File
-	fileReq := httplib.Post("http://beego.me/")
-	fileReq.Param("username", "astaxie")
-	fileReq.Param("password", "123456")
-	fileReq.PostFile("uploadfile", "hello.txt")
+	// create a task
+	tk1 := toolbox.NewTask("tk1", "0/3 * * * * *", func() error { logs.Info("tk1"); return nil })
 
-	// Bigfile
-	bigFileReq := httplib.Post("http://beego.me/")
-	bt, err := ioutil.ReadFile("hello.txt")
+	// check task
+	err := tk1.Run()
 	if err != nil {
 		logs.Error(err)
 	}
-	bigFileReq.Body(bt)
+
+	// add task to global todolist
+	toolbox.AddTask("tk1", tk1)
+
+	// start tasks
+	toolbox.StartTask()
+
+	// wait 12 second
+	time.Sleep(12 * time.Second)
+	defer toolbox.StopTask()
 }
