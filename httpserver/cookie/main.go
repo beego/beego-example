@@ -39,8 +39,8 @@ type MainController struct {
 }
 
 func (ctrl *MainController) PutCookie()  {
-	// put something into cookie
-	ctrl.Ctx.SetCookie("name", "beego cookie")
+	// put something into cookie,set Expires time
+	ctrl.Ctx.SetCookie("name", "beego cookie", 10)
 
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"

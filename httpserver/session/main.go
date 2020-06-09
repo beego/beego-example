@@ -24,7 +24,9 @@ func main() {
 
 	// enable session
 	// or you can put "session=true" into your config file
+	// or you can set SessionGCMaxLifetime
 	beego.BConfig.WebConfig.Session.SessionOn = true
+	beego.BConfig.WebConfig.Session.SessionGCMaxLifetime =10
 
 	// create contr
 	ctrl := &MainController{}
@@ -34,6 +36,9 @@ func main() {
 
 	// GET http://localhost:8080/session => ctrl.ReadSession()
 	beego.Router("/session", ctrl, "get:ReadSession")
+
+	// GET http://localhost:8080/session => ctrl.ReadSession()
+	beego.Router("/session", ctrl, "delete:DeleteSession")
 
 	beego.Run()
 }
@@ -57,5 +62,13 @@ func (ctrl *MainController) ReadSession()  {
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = ctrl.GetSession("name")
 	// don't forget this
+	_ = ctrl.Render()
+}
+
+func (ctrl *MainController) DeleteSession() {
+	// delete session all
+	ctrl.DestroySession()
+	// beego-example/views/hello_world.html
+	ctrl.TplName = "hello_world.html"
 	_ = ctrl.Render()
 }
