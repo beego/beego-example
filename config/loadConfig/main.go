@@ -15,5 +15,5 @@ func main() {
 		logs.Critical("An error occurred:", err)
 		panic(err)
 	}
-	logs.Info("load config name is",beego.AppConfig.String("name"))
+	logs.Info("load config name is", beego.AppConfig.String("name"))
 }

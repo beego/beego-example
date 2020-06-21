@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	logs.Info("auto load config name is",beego.AppConfig.String("name"))
+	logs.Info("auto load config name is", beego.AppConfig.String("name"))
 }

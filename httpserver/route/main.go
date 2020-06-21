@@ -55,7 +55,7 @@ type MainController struct {
 }
 
 // address: http://localhost:8080 GET
-func (ctrl *MainController) Get()  {
+func (ctrl *MainController) Get() {
 
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
@@ -66,7 +66,7 @@ func (ctrl *MainController) Get()  {
 }
 
 // GET http://localhost:8080/health
-func (ctrl *MainController) Health()  {
+func (ctrl *MainController) Health() {
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = "Health()"
@@ -76,7 +76,7 @@ func (ctrl *MainController) Health()  {
 }
 
 // POST http://localhost:8080/update
-func (ctrl *MainController) Update()  {
+func (ctrl *MainController) Update() {
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
@@ -87,7 +87,7 @@ func (ctrl *MainController) Update()  {
 }
 
 // GET or POST http://localhost:8080/update
-func (ctrl *MainController) GetOrPost()  {
+func (ctrl *MainController) GetOrPost() {
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
@@ -98,7 +98,7 @@ func (ctrl *MainController) GetOrPost()  {
 }
 
 // any http method http://localhost:8080/any
-func (ctrl *MainController) Any()  {
+func (ctrl *MainController) Any() {
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 

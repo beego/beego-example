@@ -26,7 +26,7 @@ func main() {
 	// or you can put "session=true" into your config file
 	// or you can set SessionGCMaxLifetime
 	beego.BConfig.WebConfig.Session.SessionOn = true
-	beego.BConfig.WebConfig.Session.SessionGCMaxLifetime =10
+	beego.BConfig.WebConfig.Session.SessionGCMaxLifetime = 10
 
 	// create contr
 	ctrl := &MainController{}
@@ -47,7 +47,7 @@ type MainController struct {
 	beego.Controller
 }
 
-func (ctrl *MainController) PutSession()  {
+func (ctrl *MainController) PutSession() {
 	// put something into session
 	ctrl.SetSession("name", "beego session")
 
@@ -57,7 +57,7 @@ func (ctrl *MainController) PutSession()  {
 	_ = ctrl.Render()
 }
 
-func (ctrl *MainController) ReadSession()  {
+func (ctrl *MainController) ReadSession() {
 	// beego-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = ctrl.GetSession("name")
