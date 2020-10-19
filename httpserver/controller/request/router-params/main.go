@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
@@ -24,20 +24,20 @@ func main() {
 
 	// we register the path / to &MainController
 	// if we don't pass methodName as third param
-	// beego will use the default mappingMethods
+	// web will use the default mappingMethods
 	// GET http://localhost:8080  -> Get()
 	// POST http://localhost:8080 -> Post()
 	// ...
-	beego.Router("/:id", ctrl)
+	web.Router("/:id", ctrl)
 
-	beego.Run()
+	web.Run()
 }
 
 // MainController:
 // The controller must implement ControllerInterface
-// Usually we extends beego.Controller
+// Usually we extends web.Controller
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 //curl --location --request GET 'localhost:8080/123'

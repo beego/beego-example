@@ -17,21 +17,21 @@ package main
 import (
 	"fmt"
 
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 	apmbeego "github.com/opentracing-contrib/beego"
 )
 
 func main() {
-	beego.Router("/", &MainController{})
-	// Actually, I just pick the opentracing-contrib/beego as example but I do not check
+	web.Router("/", &MainController{})
+	// Actually, I just use the opentracing-contrib/web as example but I do not check
 	// whether it is a good middleware
-	beego.RunWithMiddleWares("localhost:8080", apmbeego.Middleware("bee-go-demo"))
+	web.RunWithMiddleWares("localhost:8080", apmbeego.Middleware("bee-go-demo"))
 
 	// start the server and then request GET http://localhost:8080/
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (m *MainController) Get() {

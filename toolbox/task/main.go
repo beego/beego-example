@@ -15,29 +15,33 @@
 package main
 
 import (
+	"context"
 	"time"
 
-	"github.com/astaxie/beego/logs"
-	"github.com/astaxie/beego/toolbox"
+	"github.com/astaxie/beego/core/logs"
+	"github.com/astaxie/beego/task"
 )
 
 func main() {
 	// create a task
-	tk1 := toolbox.NewTask("tk1", "0/3 * * * * *", func() error { logs.Info("tk1"); return nil })
+	tk1 := task.NewTask("tk1", "0/3 * * * * *", func(ctx context.Context) error {
+		logs.Info("tk1")
+		return nil
+	})
 
 	// check task
-	err := tk1.Run()
+	err := tk1.Run(context.Background())
 	if err != nil {
 		logs.Error(err)
 	}
 
 	// add task to global todolist
-	toolbox.AddTask("tk1", tk1)
+	task.AddTask("tk1", tk1)
 
 	// start tasks
-	toolbox.StartTask()
+	task.StartTask()
 
 	// wait 12 second
 	time.Sleep(12 * time.Second)
-	defer toolbox.StopTask()
+	defer task.StopTask()
 }

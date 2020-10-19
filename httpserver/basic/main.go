@@ -15,13 +15,13 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
 	// now you start the beego as http server.
 	// it will listen to port 8080
-	beego.Run()
+	web.Run()
 
 	// it will listen to 8080
 	// beego.Run("localhost")

@@ -17,32 +17,34 @@ package main
 import (
 	"time"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/metric"
+	"github.com/astaxie/beego/server/web"
+	"github.com/astaxie/beego/server/web/filter/prometheus"
 )
 
 func main() {
 	// we start admin service
 	// Prometheus will fetch metrics data from admin service's port
-	beego.BConfig.Listen.EnableAdmin = true
+	web.BConfig.Listen.EnableAdmin = true
 
-	beego.BConfig.AppName = "my app"
+	web.BConfig.AppName = "my app"
 
 	ctrl := &MainController{}
-	beego.Router("/hello", ctrl, "get:Hello")
-	beego.RunWithMiddleWares(":8080", metric.PrometheusMiddleWare)
+	web.Router("/hello", ctrl, "get:Hello")
+	fb := &prometheus.FilterChainBuilder{}
+	web.InsertFilterChain("/*", fb.FilterChain)
+	web.Run(":8080")
 	// after you start the server
 	// and GET http://localhost:8080/hello
 	// access http://localhost:8088/metrics
 	// you can see something looks like:
-	// http_request_beego_sum{appname="my app",duration="1002",env="prod",method="GET",pattern="/hello",server="beegoServer:1.12.1",status="200"} 1002
-	// http_request_beego_count{appname="my app",duration="1002",env="prod",method="GET",pattern="/hello",server="beegoServer:1.12.1",status="200"} 1
-	// http_request_beego_sum{appname="my app",duration="1004",env="prod",method="GET",pattern="/hello",server="beegoServer:1.12.1",status="200"} 1004
-	// http_request_beego_count{appname="my app",duration="1004",env="prod",method="GET",pattern="/hello",server="beegoServer:1.12.1",status="200"} 1
+	// http_request_web_sum{appname="my app",duration="1002",env="prod",method="GET",pattern="/hello",server="webServer:1.12.1",status="200"} 1002
+	// http_request_web_count{appname="my app",duration="1002",env="prod",method="GET",pattern="/hello",server="webServer:1.12.1",status="200"} 1
+	// http_request_web_sum{appname="my app",duration="1004",env="prod",method="GET",pattern="/hello",server="webServer:1.12.1",status="200"} 1004
+	// http_request_web_count{appname="my app",duration="1004",env="prod",method="GET",pattern="/hello",server="webServer:1.12.1",status="200"} 1
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (ctrl *MainController) Hello() {

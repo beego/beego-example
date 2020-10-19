@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 type ErrorController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (c *ErrorController) Error404() {
@@ -21,6 +21,6 @@ func (c *ErrorController) Error501() {
 }
 
 func main() {
-	beego.ErrorController(&ErrorController{}) // register error
-	beego.Run()
+	web.ErrorController(&ErrorController{}) // register error
+	web.Run()
 }

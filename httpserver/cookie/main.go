@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 // to test this
@@ -26,30 +26,30 @@ func main() {
 	ctrl := &MainController{}
 
 	// POST http://localhost:8080/cookie => ctrl.PutCookie()
-	beego.Router("/cookie", ctrl, "post:PutCookie")
+	web.Router("/cookie", ctrl, "post:PutCookie")
 
 	// GET http://localhost:8080/cookie => ctrl.ReadCookie()
-	beego.Router("/cookie", ctrl, "get:ReadCookie")
+	web.Router("/cookie", ctrl, "get:ReadCookie")
 
-	beego.Run()
+	web.Run()
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (ctrl *MainController) PutCookie() {
 	// put something into cookie,set Expires time
-	ctrl.Ctx.SetCookie("name", "beego cookie", 10)
+	ctrl.Ctx.SetCookie("name", "web cookie", 10)
 
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = "PutCookie"
 	_ = ctrl.Render()
 }
 
 func (ctrl *MainController) ReadCookie() {
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = ctrl.Ctx.GetCookie("name")
 	// don't forget this

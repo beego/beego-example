@@ -18,15 +18,15 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/core/logs"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
 
-	beego.Router("/", &MainController{})
+	web.Router("/", &MainController{})
 	// The middleware definition is func(http.Handler) http.Handler
-	beego.RunWithMiddleWares(":8080", customMiddleware1, func(next http.Handler) http.Handler {
+	web.RunWithMiddleWares(":8080", customMiddleware1, func(next http.Handler) http.Handler {
 		return &customMiddleware2{
 			next: next,
 		}
@@ -59,7 +59,7 @@ func (c *customMiddleware2) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (m *MainController) Get() {

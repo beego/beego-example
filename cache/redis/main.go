@@ -15,41 +15,43 @@
 package main
 
 import (
+	"context"
 	"time"
 
-	"github.com/astaxie/beego/cache"
-	_ "github.com/astaxie/beego/cache/redis"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/client/cache"
+	// don't forget this
+	_ "github.com/astaxie/beego/client/cache/redis"
+	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {
 	// create cache
-	bm, err := cache.NewCache("redis", `{"key":"default", "conn":":6379", "password":"123456", "dbNum":"0"}`)
+	bm, err := cache.NewCache("redis", `{"key":"default", "conn":"192.168.0.105:6379", "dbNum":"0"}`)
 	if err != nil {
 		logs.Error(err)
 	}
 
 	// put
-	isPut := bm.Put("astaxie", 1, time.Second*10)
+	isPut := bm.Put(context.Background(), "astaxie", 1, time.Second*10)
 	logs.Info(isPut)
 
-	isPut = bm.Put("hello", "world", time.Second*10)
+	isPut = bm.Put(context.Background(), "hello", "world", time.Second*10)
 	logs.Info(isPut)
 
 	// get
-	result := bm.Get("astaxie")
+	result, _ := bm.Get(context.Background(), "astaxie")
 	logs.Info(string(result.([]byte)))
 
-	multiResult := bm.GetMulti([]string{"astaxie", "hello"})
+	multiResult, _ := bm.GetMulti(context.Background(), []string{"astaxie", "hello"})
 	for i := range multiResult {
 		logs.Info(string(multiResult[i].([]byte)))
 	}
 
 	// isExist
-	isExist := bm.IsExist("astaxie")
+	isExist, _ := bm.IsExist(context.Background(), "astaxie")
 	logs.Info(isExist)
 
 	// delete
-	isDelete := bm.Delete("astaxie")
+	isDelete := bm.Delete(context.Background(), "astaxie")
 	logs.Info(isDelete)
 }
