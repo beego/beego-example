@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload example</title>
+</head>
+<body>
+
+<form enctype="multipart/form-data" method="post" action = "/upload">
+    <span>test to /upload</span>
+    <input type="file" name="upload.txt" />
+    <input type="submit">
+</form>
+
+<br />
+
+<form enctype="multipart/form-data" method="post" action = "/save">
+    <span>test to /save</span>
+    <input type="file" name="save.txt" />
+    <input type="submit">
+</form>
+
+</body>
+</html>
