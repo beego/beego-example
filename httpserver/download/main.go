@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,18 +15,18 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
 	ctrl := &MainController{}
-	beego.Router("/download", ctrl, "get:Download")
-	beego.Router("/download_file", ctrl, "get:DownloadFile")
-	beego.Run()
+	web.Router("/download", ctrl, "get:Download")
+	web.Router("/download_file", ctrl, "get:DownloadFile")
+	web.Run()
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (ctrl *MainController) DownloadFile() {

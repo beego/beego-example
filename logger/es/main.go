@@ -15,15 +15,15 @@
 package main
 
 import (
-	"github.com/astaxie/beego/logs"
-	_ "github.com/astaxie/beego/logs/es"
+	"github.com/astaxie/beego/core/logs"
+	_ "github.com/astaxie/beego/core/logs/es"
 )
 
 func main() {
 
 	// don't forget import es package
 	// this statement:
-	// _ "github.com/astaxie/beego/logs/es"
+	// _ "github.com/astaxie/beego/adapter/logs/es"
 
 	// before you run this example, please start ES server and update address to your real address
 	err := logs.SetLogger(logs.AdapterEs, `{"dsn":"http://localhost:9200/","level":1}`)

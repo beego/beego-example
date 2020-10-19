@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/client/orm"
 	_ "github.com/lib/pq"
 )
 

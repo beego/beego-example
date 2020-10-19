@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
@@ -24,40 +24,40 @@ func main() {
 
 	// we register the path / to &MainController
 	// if we don't pass methodName as third param
-	// beego will use the default mappingMethods
+	// web will use the default mappingMethods
 	// GET http://localhost:8080  -> Get()
 	// POST http://localhost:8080 -> Post()
 	// ...
-	beego.Router("/", ctrl)
+	web.Router("/", ctrl)
 
 	// GET http://localhost:8080/health => ctrl.Health()
-	beego.Router("/health", ctrl, "get:Health")
+	web.Router("/health", ctrl, "get:Health")
 
 	// POST http://localhost:8080/update => ctrl.Update()
-	beego.Router("/update", ctrl, "post:Update")
+	web.Router("/update", ctrl, "post:Update")
 
 	// support multiple http methods.
 	// POST or GET http://localhost:8080/update => ctrl.GetOrPost()
-	beego.Router("/getOrPost", ctrl, "get,post:GetOrPost")
+	web.Router("/getOrPost", ctrl, "get,post:GetOrPost")
 
 	// support any http method
 	// POST, GET, PUT, DELETE... http://localhost:8080/update => ctrl.Any()
-	beego.Router("/any", ctrl, "*:Any")
+	web.Router("/any", ctrl, "*:Any")
 
-	beego.Run()
+	web.Run()
 }
 
 // MainController:
 // The controller must implement ControllerInterface
-// Usually we extends beego.Controller
+// Usually we extends web.Controller
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 // address: http://localhost:8080 GET
 func (ctrl *MainController) Get() {
 
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = "Get()"
 
@@ -67,7 +67,7 @@ func (ctrl *MainController) Get() {
 
 // GET http://localhost:8080/health
 func (ctrl *MainController) Health() {
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = "Health()"
 
@@ -77,7 +77,7 @@ func (ctrl *MainController) Health() {
 
 // POST http://localhost:8080/update
 func (ctrl *MainController) Update() {
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
 	ctrl.Data["name"] = "Update()"
@@ -88,7 +88,7 @@ func (ctrl *MainController) Update() {
 
 // GET or POST http://localhost:8080/update
 func (ctrl *MainController) GetOrPost() {
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
 	ctrl.Data["name"] = "GetOrPost()"
@@ -99,7 +99,7 @@ func (ctrl *MainController) GetOrPost() {
 
 // any http method http://localhost:8080/any
 func (ctrl *MainController) Any() {
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
 	ctrl.Data["name"] = "Any()"

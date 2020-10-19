@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func serverError(rw http.ResponseWriter, r *http.Request) {
@@ -15,13 +15,13 @@ func serverError(rw http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	beego.ErrorHandler("500", serverError)
-	beego.Router("/", &MainController{})
-	beego.Run()
+	web.ErrorHandler("500", serverError)
+	web.Router("/", &MainController{})
+	web.Run()
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (m *MainController) Get() {

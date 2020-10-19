@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/client/orm"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -28,7 +28,6 @@ func main() {
 
 	// create orm object
 	o := orm.NewOrm()
-	o.Using("default")
 
 	// data
 	user := new(User)
