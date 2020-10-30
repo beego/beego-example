@@ -15,25 +15,20 @@
 package main
 
 import (
-	"github.com/astaxie/beego/client/httplib"
-	"github.com/astaxie/beego/client/httplib/filter/opentracing"
 	"github.com/astaxie/beego/core/logs"
+	"github.com/astaxie/beego/server/web"
+	"github.com/astaxie/beego/server/web/context"
 )
 
 func main() {
+	web.InsertFilterChain("/*", func(next web.FilterFunc) web.FilterFunc {
+		return func(ctx *context.Context) {
+			// do something
+			logs.Info("hello")
+			// don't forget this
+			next(ctx)
 
-	// don't forget this to inject the opentracing API's implementation
-	// opentracing2.SetGlobalTracer()
-
-	builder := opentracing.FilterChainBuilder{}
-	req := httplib.Get("http://beego.me/")
-	// only work for this request, or using SetDefaultSetting to support all requests
-	req.AddFilters(builder.FilterChain)
-
-	resp, err := req.Response()
-	if err != nil {
-		logs.Error("could not get response: ", err)
-	} else {
-		logs.Info(resp)
-	}
+			// do something
+		}
+	})
 }

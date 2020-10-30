@@ -1,4 +1,4 @@
-// Copyright 2020 
+// Copyright 2020 astaxie
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,25 +15,31 @@
 package main
 
 import (
-	"github.com/astaxie/beego/client/httplib"
-	"github.com/astaxie/beego/client/httplib/filter/opentracing"
-	"github.com/astaxie/beego/core/logs"
+	"time"
+
+	"github.com/astaxie/beego/server/web"
+	"github.com/astaxie/beego/server/web/filter/opentracing"
 )
 
 func main() {
-
 	// don't forget this to inject the opentracing API's implementation
 	// opentracing2.SetGlobalTracer()
 
-	builder := opentracing.FilterChainBuilder{}
-	req := httplib.Get("http://beego.me/")
-	// only work for this request, or using SetDefaultSetting to support all requests
-	req.AddFilters(builder.FilterChain)
+	web.BConfig.AppName = "my app"
 
-	resp, err := req.Response()
-	if err != nil {
-		logs.Error("could not get response: ", err)
-	} else {
-		logs.Info(resp)
-	}
+	ctrl := &MainController{}
+	web.Router("/hello", ctrl, "get:Hello")
+	fb := &opentracing.FilterChainBuilder{}
+	web.InsertFilterChain("/*", fb.FilterChain)
+	web.Run(":8080")
+	// after you start the server
+}
+
+type MainController struct {
+	web.Controller
+}
+
+func (ctrl *MainController) Hello() {
+	time.Sleep(time.Second)
+	ctrl.Ctx.ResponseWriter.Write([]byte("Hello, world"))
 }
