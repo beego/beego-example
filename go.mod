@@ -11,5 +11,5 @@ require (
 )
 
 replace (
-	//github.com/astaxie/beego => ../beego
+	github.com/astaxie/beego => ../beego
 )
