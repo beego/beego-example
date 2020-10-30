@@ -15,25 +15,18 @@
 package main
 
 import (
-	"github.com/astaxie/beego/client/httplib"
-	"github.com/astaxie/beego/client/httplib/filter/opentracing"
 	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {
 
-	// don't forget this to inject the opentracing API's implementation
-	// opentracing2.SetGlobalTracer()
-
-	builder := opentracing.FilterChainBuilder{}
-	req := httplib.Get("http://beego.me/")
-	// only work for this request, or using SetDefaultSetting to support all requests
-	req.AddFilters(builder.FilterChain)
-
-	resp, err := req.Response()
-	if err != nil {
-		logs.Error("could not get response: ", err)
-	} else {
-		logs.Info(resp)
+	f := &logs.PatternLogFormatter{
+		Pattern:    "%F:%n|%w%t>> %m",
+		WhenFormat: "2006-01-02",
 	}
+	logs.RegisterFormatter("pattern", f)
+
+	_ = logs.SetLogger("console",`{"formatter": "pattern"}`)
+
+	logs.Info("hello, world")
 }
