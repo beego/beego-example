@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,37 +18,36 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/astaxie/beego/validation"
-
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/core/validation"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
 
 	ctrl := &MainController{}
 
-	beego.BConfig.CopyRequestBody = true
+	web.BConfig.CopyRequestBody = true
 
 	// we register the path / to &MainController
 	// if we don't pass methodName as third param
-	// beego will use the default mappingMethods
+	// web will use the default mappingMethods
 	// GET http://localhost:8080  -> Get()
 	// POST http://localhost:8080 -> Post()
 	// ...
-	beego.Router("/", ctrl)
+	web.Router("/", ctrl)
 
-	beego.Run()
+	web.Run()
 }
 
 // MainController:
 // The controller must implement ControllerInterface
-// Usually we extends beego.Controller
+// Usually we extends web.Controller
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 type user struct {
-	Name     string                 `json:"name"valid:"Required;Match(/^Bee.*/)"`
+	Name     string                 `json:"name" valid:"Required;Match(/^Bee.*/)"`
 	Password string                 `json:"password"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
@@ -62,9 +61,9 @@ func (u *user) Valid(v *validation.Validation) {
 	}
 }
 
-//curl --location --request POST 'localhost:8080/' \
-//--header 'Content-Type: application/json' \
-//--data-raw '{"name":"Beeadmin","password":"1234","metadata":{"phone":"12423434"},"created_at":"test"}'
+// curl --location --request POST 'localhost:8080/' \
+// --header 'Content-Type: application/json' \
+// --data-raw '{"name":"Beeadmin","password":"1234","metadata":{"phone":"12423434"},"created_at":"test"}'
 
 // address: http://localhost:8080 Post
 func (ctrl *MainController) Post() {

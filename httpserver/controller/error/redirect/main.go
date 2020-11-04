@@ -3,17 +3,17 @@ package main
 import (
 	"net/http"
 
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
-	beego.Router("/", &MainController{})
-	beego.Router("/redirect", &RedirectController{})
-	beego.Run()
+	web.Router("/", &MainController{})
+	web.Router("/redirect", &RedirectController{})
+	web.Run()
 }
 
 type RedirectController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (r *RedirectController) Post() {
@@ -22,7 +22,7 @@ func (r *RedirectController) Post() {
 }
 
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (m *MainController) Get() {

@@ -1,16 +1,16 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
-	beego.Router("/abort", &AbortController{})
-	beego.Run()
+	web.Router("/abort", &AbortController{})
+	web.Run()
 }
 
 type AbortController struct {
-	beego.Controller
+	web.Controller
 }
 
 func (a *AbortController) Get() {

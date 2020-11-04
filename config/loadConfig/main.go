@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/core/logs"
+	"github.com/astaxie/beego/server/web"
 )
 
 var (
@@ -10,10 +10,13 @@ var (
 )
 
 func main() {
-	err := beego.LoadAppConfig("ini", ConfigFile)
+	err := web.LoadAppConfig("ini", ConfigFile)
 	if err != nil {
 		logs.Critical("An error occurred:", err)
 		panic(err)
 	}
-	logs.Info("load config name is", beego.AppConfig.String("name"))
+
+	val, _ := web.AppConfig.String("name")
+
+	logs.Info("load config name is", val)
 }

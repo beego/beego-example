@@ -15,10 +15,10 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/cache"
-	"github.com/astaxie/beego/logs"
-	"github.com/astaxie/beego/utils/captcha"
+	beego "github.com/astaxie/beego/adapter"
+	"github.com/astaxie/beego/client/cache"
+	"github.com/astaxie/beego/core/logs"
+	"github.com/astaxie/beego/server/web/captcha"
 )
 
 // init captcha

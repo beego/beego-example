@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,18 +15,18 @@
 package main
 
 import (
-	"time"
-
-	"github.com/astaxie/beego/client/httplib"
 	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {
-	// use SetTimeout(connectTimeout, readWriteTimeout)
-	resp, err := httplib.Get("http://beego.me/").SetTimeout(100*time.Second, 30*time.Second).Response()
-	if err != nil {
-		logs.Error(err)
-	}
 
-	logs.Info(resp)
+	f := &logs.PatternLogFormatter{
+		Pattern:    "%F:%n|%w%t>> %m",
+		WhenFormat: "2006-01-02",
+	}
+	logs.RegisterFormatter("pattern", f)
+
+	_ = logs.SetLogger("console",`{"formatter": "pattern"}`)
+
+	logs.Info("hello, world")
 }

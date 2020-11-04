@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/server/web"
 )
 
 func main() {
@@ -23,22 +23,22 @@ func main() {
 	ctrl := &MainController{}
 
 	// GET http://localhost:8080/health => ctrl.Health()
-	beego.Router("/hello", ctrl, "get:Hello")
+	web.Router("/hello", ctrl, "get:Hello")
 
-	beego.Run()
+	web.Run()
 }
 
 // MainController:
 // The controller must implement ControllerInterface
-// Usually we extends beego.Controller
+// Usually we extends web.Controller
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 // address: http://localhost:8080/hello GET
 func (ctrl *MainController) Hello() {
 
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = "Hello()"
 

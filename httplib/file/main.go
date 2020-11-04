@@ -17,11 +17,14 @@ package main
 import (
 	"io/ioutil"
 
-	"github.com/astaxie/beego/httplib"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/client/httplib"
+	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {
+
+	// be careful about the work directory
+
 	// Upload File
 	fileReq := httplib.Post("http://beego.me/")
 	fileReq.Param("username", "astaxie")

@@ -15,8 +15,8 @@
 package main
 
 import (
-	"github.com/astaxie/beego/httplib"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/client/httplib"
+	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {

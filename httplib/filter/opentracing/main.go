@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,18 +15,25 @@
 package main
 
 import (
-	"time"
-
 	"github.com/astaxie/beego/client/httplib"
+	"github.com/astaxie/beego/client/httplib/filter/opentracing"
 	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {
-	// use SetTimeout(connectTimeout, readWriteTimeout)
-	resp, err := httplib.Get("http://beego.me/").SetTimeout(100*time.Second, 30*time.Second).Response()
-	if err != nil {
-		logs.Error(err)
-	}
 
-	logs.Info(resp)
+	// don't forget this to inject the opentracing API's implementation
+	// opentracing2.SetGlobalTracer()
+
+	builder := opentracing.FilterChainBuilder{}
+	req := httplib.Get("http://beego.me/")
+	// only work for this request, or using SetDefaultSetting to support all requests
+	req.AddFilters(builder.FilterChain)
+
+	resp, err := req.Response()
+	if err != nil {
+		logs.Error("could not get response: ", err)
+	} else {
+		logs.Info(resp)
+	}
 }

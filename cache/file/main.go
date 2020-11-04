@@ -15,10 +15,11 @@
 package main
 
 import (
+	"context"
 	"time"
 
-	"github.com/astaxie/beego/cache"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/client/cache"
+	"github.com/astaxie/beego/core/logs"
 )
 
 func main() {
@@ -28,26 +29,26 @@ func main() {
 	}
 
 	// put
-	isPut := bm.Put("name", "beego", time.Second*10)
+	isPut := bm.Put(context.Background(), "name", "beego", time.Second*10)
 	logs.Info(isPut)
 
-	isPut = bm.Put("hello", "world", time.Second*10)
+	isPut = bm.Put(context.Background(), "hello", "world", time.Second*10)
 	logs.Info(isPut)
 
 	// get
-	result := bm.Get("name")
+	result, _ := bm.Get(context.Background(), "name")
 	logs.Info(result)
 
-	multiResult := bm.GetMulti([]string{"name", "hello"})
+	multiResult, _ := bm.GetMulti(context.Background(), []string{"name", "hello"})
 	for i := range multiResult {
 		logs.Info(multiResult[i])
 	}
 
 	// isExist
-	isExist := bm.IsExist("name")
+	isExist, _ := bm.IsExist(context.Background(), "name")
 	logs.Info(isExist)
 
 	// delete
-	isDelete := bm.Delete("name")
+	isDelete := bm.Delete(context.Background(), "name")
 	logs.Info(isDelete)
 }

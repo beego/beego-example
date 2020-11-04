@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 web-dev
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,41 +17,41 @@ package main
 import (
 	"fmt"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/server/web"
+	"github.com/astaxie/beego/server/web/context"
 )
 
 func main() {
 
 	ctrl := &MainController{}
-	//定义路由过滤器
-	beego.InsertFilter("/user/*", beego.BeforeExec, filterFunc)
+	// 定义路由过滤器
+	web.InsertFilter("/user/*", web.BeforeExec, filterFunc)
 	// we register the path / to &MainController
 	// if we don't pass methodName as third param
-	// beego will use the default mappingMethods
+	// web will use the default mappingMethods
 	// GET http://localhost:8080  -> Get()
 	// POST http://localhost:8080 -> Post()
 	// ...
-	beego.Router("/", ctrl)
-	//用户登录
-	beego.Router("/login", ctrl, "get:Login")
-	//用户中心个人信息页面展示
-	beego.Router("/user/info", ctrl, "get:User")
+	web.Router("/", ctrl)
+	// 用户登录
+	web.Router("/login", ctrl, "get:Login")
+	// 用户中心个人信息页面展示
+	web.Router("/user/info", ctrl, "get:User")
 
-	beego.Run()
+	web.Run()
 }
 
 // MainController:
 // The controller must implement ControllerInterface
-// Usually we extends beego.Controller
+// Usually we extends web.Controller
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 // address: http://localhost:8080 GET
 func (ctrl *MainController) Get() {
 
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 	ctrl.Data["name"] = "Get()"
 
@@ -62,7 +62,7 @@ func (ctrl *MainController) Get() {
 // any http method http://localhost:8080/login
 func (ctrl *MainController) Login() {
 	fmt.Println("过滤校验login")
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
 	ctrl.Data["name"] = "Login()"
@@ -73,10 +73,10 @@ func (ctrl *MainController) Login() {
 
 // any http method http://localhost:8080/user/info
 func (ctrl *MainController) User() {
-	// beego-example/views/hello_world.html
+	// web-example/views/hello_world.html
 	ctrl.TplName = "hello_world.html"
 
-	ctrl.Data["name"] = "hello beego"
+	ctrl.Data["name"] = "hello web"
 
 	// don't forget this
 	_ = ctrl.Render()
@@ -84,10 +84,10 @@ func (ctrl *MainController) User() {
 
 /* 定义过滤函数 */
 func filterFunc(ctx *context.Context) {
-	//过滤校验
+	// 过滤校验
 	fmt.Println("过滤校验")
 	var id int
-	_ = ctx.Input.Bind(&id, "id") //id ==123
+	_ = ctx.Input.Bind(&id, "id") // id ==123
 	fmt.Println(id)
 	if id == 0 {
 		ctx.Redirect(302, "/login")

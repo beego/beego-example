@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,18 +15,20 @@
 package main
 
 import (
-	"time"
-
-	"github.com/astaxie/beego/client/httplib"
 	"github.com/astaxie/beego/core/logs"
+	"github.com/astaxie/beego/server/web"
+	"github.com/astaxie/beego/server/web/context"
 )
 
 func main() {
-	// use SetTimeout(connectTimeout, readWriteTimeout)
-	resp, err := httplib.Get("http://beego.me/").SetTimeout(100*time.Second, 30*time.Second).Response()
-	if err != nil {
-		logs.Error(err)
-	}
+	web.InsertFilterChain("/*", func(next web.FilterFunc) web.FilterFunc {
+		return func(ctx *context.Context) {
+			// do something
+			logs.Info("hello")
+			// don't forget this
+			next(ctx)
 
-	logs.Info(resp)
+			// do something
+		}
+	})
 }

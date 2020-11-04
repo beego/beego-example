@@ -15,39 +15,42 @@
 package main
 
 import (
+	"context"
 	"time"
 
-	"github.com/astaxie/beego/cache"
-	_ "github.com/astaxie/beego/cache/memcache"
-	"github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/client/cache"
+	"github.com/astaxie/beego/core/logs"
+
+	// don't forget this
+	_ "github.com/astaxie/beego/client/cache/memcache"
 )
 
 func main() {
 	// create memory
-	bm, err := cache.NewCache("memcache", `{"conn":"127.0.0.1:11211"}`)
+	bm, err := cache.NewCache("memcache", `{"conn":"192.168.0.105:11211"}`)
 	if err != nil {
 		logs.Error(err)
 	}
 
 	// put
-	isPut := bm.Put("name", "beego", time.Second*10)
+	isPut := bm.Put(context.Background(), "name", "beego", time.Second*10)
 	logs.Info(isPut)
 
-	isPut = bm.Put("hello", "world", time.Second*10)
+	isPut = bm.Put(context.Background(), "hello", "world", time.Second*10)
 	logs.Info(isPut)
 
 	// get
-	result := bm.Get("name")
+	result, _ := bm.Get(context.Background(), "name")
 	logs.Info(result)
 
-	result = bm.GetMulti([]string{"name", "hello"})
+	result, _ = bm.GetMulti(context.Background(), []string{"name", "hello"})
 	logs.Info(result)
 
 	// isExist
-	isExist := bm.IsExist("name")
+	isExist, _ := bm.IsExist(context.Background(), "name")
 	logs.Info(isExist)
 
 	// delete
-	isDelete := bm.Delete("name")
+	isDelete := bm.Delete(context.Background(), "name")
 	logs.Info(isDelete)
 }

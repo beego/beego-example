@@ -1,4 +1,4 @@
-// Copyright 2020 beego-dev
+// Copyright 2020 astaxie
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,20 +15,31 @@
 package main
 
 import (
+	"time"
+
 	"github.com/astaxie/beego/server/web"
+	"github.com/astaxie/beego/server/web/filter/opentracing"
 )
 
 func main() {
-	// now you start the beego as http server.
-	// it will listen to port 8080
-	web.Run()
+	// don't forget this to inject the opentracing API's implementation
+	// opentracing2.SetGlobalTracer()
 
-	// it will listen to 8080
-	// beego.Run("localhost")
+	web.BConfig.AppName = "my app"
 
-	// it will listen to 8089
-	// beego.Run(":8089")
+	ctrl := &MainController{}
+	web.Router("/hello", ctrl, "get:Hello")
+	fb := &opentracing.FilterChainBuilder{}
+	web.InsertFilterChain("/*", fb.FilterChain)
+	web.Run(":8080")
+	// after you start the server
+}
 
-	// it will listen to 8089
-	// beego.Run("127.0.0.1:8089")
+type MainController struct {
+	web.Controller
+}
+
+func (ctrl *MainController) Hello() {
+	time.Sleep(time.Second)
+	ctrl.Ctx.ResponseWriter.Write([]byte("Hello, world"))
 }

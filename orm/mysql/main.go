@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/client/orm"
+	// don't forget this
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -28,7 +29,6 @@ func main() {
 
 	// create orm object
 	o := orm.NewOrm()
-	o.Using("default")
 
 	// data
 	user := new(User)
