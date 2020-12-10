@@ -9,7 +9,3 @@ require (
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/opentracing-contrib/beego v0.0.0-20190807091843-a0eec2f7e67c
 )
-
-replace (
-	//github.com/astaxie/beego => ../beego
-)
