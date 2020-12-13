@@ -17,8 +17,8 @@ package main
 import (
 	"time"
 
-	"github.com/astaxie/beego/server/web"
-	"github.com/astaxie/beego/server/web/filter/prometheus"
+	"github.com/beego/beego/server/web"
+	"github.com/beego/beego/server/web/filter/prometheus"
 )
 
 func main() {

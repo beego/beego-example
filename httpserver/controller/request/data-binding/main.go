@@ -17,7 +17,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/astaxie/beego/server/web"
+	"github.com/beego/beego/server/web"
 )
 
 func main() {

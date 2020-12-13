@@ -17,8 +17,8 @@ package main
 import (
 	"io/ioutil"
 
-	"github.com/astaxie/beego/client/httplib"
-	"github.com/astaxie/beego/core/logs"
+	"github.com/beego/beego/client/httplib"
+	"github.com/beego/beego/core/logs"
 )
 
 func main() {

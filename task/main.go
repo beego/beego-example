@@ -18,8 +18,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/astaxie/beego/core/logs"
-	"github.com/astaxie/beego/task"
+	"github.com/beego/beego/core/logs"
+	"github.com/beego/beego/task"
 )
 
 func main() {
