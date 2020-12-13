@@ -18,11 +18,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/astaxie/beego/client/cache"
-	"github.com/astaxie/beego/core/logs"
+	"github.com/beego/beego/client/cache"
+	"github.com/beego/beego/core/logs"
 
 	// don't forget this
-	_ "github.com/astaxie/beego/client/cache/memcache"
+	_ "github.com/beego/beego/client/cache/memcache"
 )
 
 func main() {

@@ -15,8 +15,8 @@
 package main
 
 import (
-	"github.com/astaxie/beego/client/orm"
-	"github.com/astaxie/beego/core/logs"
+	"github.com/beego/beego/client/orm"
+	"github.com/beego/beego/core/logs"
 	_ "github.com/go-sql-driver/mysql"
 )
 

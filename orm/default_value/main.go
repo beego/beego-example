@@ -15,8 +15,8 @@
 package main
 
 import (
-	"github.com/astaxie/beego/client/orm"
-	"github.com/astaxie/beego/client/orm/filter/bean"
+	"github.com/beego/beego/client/orm"
+	"github.com/beego/beego/client/orm/filter/bean"
 
 	// don't forget this
 	_ "github.com/go-sql-driver/mysql"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego/client/orm"
+	"github.com/beego/beego/client/orm"
 	_ "github.com/mattn/go-sqlite3"
 )
 

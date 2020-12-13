@@ -17,7 +17,7 @@ package main
 import (
 	"html/template"
 
-	"github.com/astaxie/beego/server/web"
+	"github.com/beego/beego/server/web"
 )
 
 func main() {

@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/astaxie/beego/core/logs"
+	"github.com/beego/beego/core/logs"
 )
 
 func main() {

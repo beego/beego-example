@@ -15,9 +15,9 @@
 package main
 
 import (
-	"github.com/astaxie/beego/core/logs"
-	"github.com/astaxie/beego/server/web"
-	"github.com/astaxie/beego/server/web/context"
+	"github.com/beego/beego/core/logs"
+	"github.com/beego/beego/server/web"
+	"github.com/beego/beego/server/web/context"
 )
 
 func main() {
