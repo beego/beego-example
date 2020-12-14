@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/beego/beego/server/web"
+	"github.com/beego/beego/v2/server/web"
 )
 
 type ErrorController struct {

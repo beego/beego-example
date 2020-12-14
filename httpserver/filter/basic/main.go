@@ -17,8 +17,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/beego/beego/server/web"
-	"github.com/beego/beego/server/web/context"
+	"github.com/beego/beego/v2/server/web"
+	"github.com/beego/beego/v2/server/web/context"
 )
 
 func main() {

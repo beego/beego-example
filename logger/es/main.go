@@ -15,15 +15,15 @@
 package main
 
 import (
-	"github.com/beego/beego/core/logs"
-	_ "github.com/beego/beego/core/logs/es"
+	"github.com/beego/beego/v2/core/logs"
+	_ "github.com/beego/beego/v2/core/logs/es"
 )
 
 func main() {
 
 	// don't forget import es package
 	// this statement:
-	// _ "github.com/beego/beego/adapter/logs/es"
+	// _ "github.com/beego/beego/v2/adapter/logs/es"
 
 	// before you run this example, please start ES server and update address to your real address
 	err := logs.SetLogger(logs.AdapterEs, `{"dsn":"http://localhost:9200/","level":1}`)

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/beego/beego/client/orm"
+	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/lib/pq"
 )
 

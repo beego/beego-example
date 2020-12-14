@@ -17,8 +17,8 @@ package main
 import (
 	"context"
 
-	"github.com/beego/beego/client/orm"
-	"github.com/beego/beego/core/logs"
+	"github.com/beego/beego/v2/client/orm"
+	"github.com/beego/beego/v2/core/logs"
 
 	_ "github.com/go-sql-driver/mysql"
 )
