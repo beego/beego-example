@@ -15,8 +15,8 @@
 package main
 
 import (
-	"github.com/beego/beego/client/httplib"
-	"github.com/beego/beego/core/logs"
+	"github.com/beego/beego/v2/client/httplib"
+	"github.com/beego/beego/v2/core/logs"
 )
 
 func main() {

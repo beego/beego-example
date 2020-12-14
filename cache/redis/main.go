@@ -18,10 +18,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/beego/beego/client/cache"
+	"github.com/beego/beego/v2/client/cache"
 	// don't forget this
-	_ "github.com/beego/beego/client/cache/redis"
-	"github.com/beego/beego/core/logs"
+	_ "github.com/beego/beego/v2/client/cache/redis"
+	"github.com/beego/beego/v2/core/logs"
 )
 
 func main() {
