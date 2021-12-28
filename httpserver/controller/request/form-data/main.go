@@ -33,7 +33,7 @@ func main() {
 	web.Run()
 }
 
-// MainController:
+// MainController
 // The controller must implement ControllerInterface
 // Usually we extends web.Controller
 type MainController struct {
@@ -45,10 +45,10 @@ type user struct {
 	Password string `form:"password" json:"custom_password"`
 }
 
+// Post
 // curl --location --request POST 'localhost:8080/' \
 // --form 'name=test' \
 // --form 'password=1234'
-
 // address: http://localhost:8080 Post
 func (ctrl *MainController) Post() {
 	input := user{}

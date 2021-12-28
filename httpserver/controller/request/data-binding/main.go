@@ -22,6 +22,7 @@ import (
 
 func main() {
 
+	web.BConfig.CopyRequestBody = true
 	ctrl := &MainController{}
 
 	// we register the path / to &MainController
@@ -35,39 +36,54 @@ func main() {
 	web.Run()
 }
 
-// MainController:
+// MainController
 // The controller must implement ControllerInterface
 // Usually we extends web.Controller
 type MainController struct {
 	web.Controller
 }
 
-//curl --location --request GET 'localhost:8080/?id=123&isok=true&ft=1.2&ol[0]=1&ol[1]=2&ul[]=str&ul[]=array&user.Name=astaxie'
-
+// Get
+// curl --location --request GET 'localhost:8080/?id=123&isok=true&ft=1.2&ol[0]=1&ol[1]=2&ul[]=str&ul[]=array&user.Name=astaxie'
 // address: http://localhost:8080 GET
 func (ctrl *MainController) Get() {
 
 	var id int
-	_ = ctrl.Ctx.Input.Bind(&id, "id") //id ==123
+	_ = ctrl.Ctx.Input.Bind(&id, "id") // id ==123
 	fmt.Println(id)
 
 	var isok bool
-	_ = ctrl.Ctx.Input.Bind(&isok, "isok") //isok ==true
+	_ = ctrl.Ctx.Input.Bind(&isok, "isok") // isok ==true
 	fmt.Println(isok)
 
 	var ft float64
-	_ = ctrl.Ctx.Input.Bind(&ft, "ft") //ft ==1.2
+	_ = ctrl.Ctx.Input.Bind(&ft, "ft") // ft ==1.2
 	fmt.Println(ft)
 
 	ol := make([]int, 0, 2)
-	_ = ctrl.Ctx.Input.Bind(&ol, "ol") //ol ==[1 2]
+	_ = ctrl.Ctx.Input.Bind(&ol, "ol") // ol ==[1 2]
 	fmt.Println(ol)
 
 	ul := make([]string, 0, 2)
-	_ = ctrl.Ctx.Input.Bind(&ul, "ul") //ul ==[str array]
+	_ = ctrl.Ctx.Input.Bind(&ul, "ul") // ul ==[str array]
 	fmt.Println(ul)
 
 	user := struct{ Name string }{}
-	_ = ctrl.Ctx.Input.Bind(&user, "user") //user =={Name:"astaxie"}
+	_ = ctrl.Ctx.Input.Bind(&user, "user") // user =={Name:"astaxie"}
 	fmt.Println(user)
+}
+
+func (ctrl *MainController) Post() {
+	user := User{}
+	err := ctrl.BindJSON(&user)
+	if err != nil {
+		ctrl.Ctx.WriteString(err.Error())
+		return
+	}
+	ctrl.Ctx.WriteString(fmt.Sprintf("%v", user))
+}
+
+type User struct {
+	Age  int    `json:"age"`
+	Name string `json:"name"`
 }

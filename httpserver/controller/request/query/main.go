@@ -30,19 +30,27 @@ func main() {
 	// ...
 	web.Router("/", ctrl)
 
+	web.Router("/path/:name", ctrl, "post:Post")
+
 	web.Run()
 }
 
-// MainController:
+// MainController
 // The controller must implement ControllerInterface
 // Usually we extends web.Controller
 type MainController struct {
 	web.Controller
 }
 
+// Get
 // address: http://localhost:8080 GET
+// Get use default value
 func (ctrl *MainController) Get() {
+	name := ctrl.GetString("name", "Tom")
+	ctrl.Ctx.WriteString("Hello " + name)
+}
 
+func (ctrl *MainController) Post() {
 	name := ctrl.GetString("name")
 	if name == "" {
 		ctrl.Ctx.WriteString("Hello World")

@@ -1,4 +1,4 @@
-// Copyright 2020 
+// Copyright 2020
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@ func (mc *MainController) XsrfPage() {
 }
 
 func (mc *MainController) NewMessage() {
+	mc.CheckXSRFCookie()
 	v, _ := mc.Input()
 	mc.Ctx.WriteString("hello" + v.Get("message"))
 }

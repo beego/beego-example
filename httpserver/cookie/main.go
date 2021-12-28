@@ -31,11 +31,32 @@ func main() {
 	// GET http://localhost:8080/cookie => ctrl.ReadCookie()
 	web.Router("/cookie", ctrl, "get:ReadCookie")
 
+	web.Router("/cookie/secure", ctrl, "post:PutSecureCookie")
+	web.Router("/cookie/secure", ctrl, "get:ReadSecureCookie")
+
 	web.Run()
 }
 
 type MainController struct {
 	web.Controller
+}
+
+func (ctrl *MainController) PutSecureCookie() {
+	// put something into cookie,set Expires time
+	ctrl.Ctx.SetSecureCookie("my-secret", "name", "web cookie")
+
+	// web-example/views/hello_world.html
+	ctrl.TplName = "hello_world.html"
+	ctrl.Data["name"] = "PutCookie"
+	_ = ctrl.Render()
+}
+
+func (ctrl *MainController) ReadSecureCookie() {
+	// web-example/views/hello_world.html
+	ctrl.TplName = "hello_world.html"
+	ctrl.Data["name"], _ = ctrl.Ctx.GetSecureCookie("my-secret", "name")
+	// don't forget this
+	_ = ctrl.Render()
 }
 
 func (ctrl *MainController) PutCookie() {
