@@ -44,7 +44,6 @@ func (mc *MainController) XsrfPage() {
 }
 
 func (mc *MainController) NewMessage() {
-	mc.CheckXSRFCookie()
 	v, _ := mc.Input()
 	mc.Ctx.WriteString("hello" + v.Get("message"))
 }
