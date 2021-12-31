@@ -15,9 +15,8 @@
 package main
 
 import (
-	"html/template"
-
 	"github.com/beego/beego/v2/server/web"
+	"html/template"
 )
 
 func main() {
@@ -28,6 +27,7 @@ func main() {
 	mc := &MainController{}
 
 	web.Router("/xsrfpage", mc, "get:XsrfPage")
+	web.Router("/xsrfjson", mc, "get:XsrfJSON")
 	web.Router("/new_message", mc, "post:NewMessage")
 
 	web.Run(":8080")
@@ -43,7 +43,18 @@ func (mc *MainController) XsrfPage() {
 	mc.TplName = "xsrf.html"
 }
 
+func (mc *MainController) XsrfJSON() {
+	mc.XSRFExpire = 7200
+	type data struct {
+		XsrfToken string `json:"xsrfToken"`
+	}
+	token := mc.XSRFToken()
+	mc.Ctx.Output.Header("xsrf", token)
+	_ = mc.JSONResp(&data{XsrfToken: token})
+}
+
 func (mc *MainController) NewMessage() {
+	mc.CheckXSRFCookie()
 	v, _ := mc.Input()
 	mc.Ctx.WriteString("hello" + v.Get("message"))
 }
