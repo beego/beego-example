@@ -16,32 +16,24 @@ package main
 
 import (
 	"github.com/beego/beego/v2/server/web"
+	"log"
 )
 
 func main() {
-
-	ctrl := &MainController{}
-
-	// GET http://localhost:8080/health => ctrl.Health()
-	web.Router("/hello", ctrl, "get:Hello")
-
+	c := &MyController{}
+	web.Router("/upload", c, "post:Upload")
 	web.Run()
 }
 
-// MainController:
-// The controller must implement ControllerInterface
-// Usually we extends web.Controller
-type MainController struct {
+type MyController struct {
 	web.Controller
 }
 
-// address: http://localhost:8080/hello GET
-func (ctrl *MainController) Hello() {
-
-	// web-example/views/hello_world.html
-	ctrl.TplName = "hello_world.html"
-	ctrl.Data["name"] = "Hello()"
-
-	// don't forget this
-	_ = ctrl.Render()
+func (c *MyController) Upload() {
+	// change the ~/tmp based on your requirement
+	err := c.SaveToFile("file", "/Users/ming.deng/tmp/my_file.data")
+	if err != nil {
+		log.Println(err)
+	}
+	c.Ctx.WriteString("end")
 }
