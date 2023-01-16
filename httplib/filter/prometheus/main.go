@@ -1,4 +1,4 @@
-// Copyright 2020 
+// Copyright 2020
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@ import (
 
 func main() {
 	builder := prometheus.FilterChainBuilder{
-		AppName: "My-test",
+		AppName:    "My-test",
 		ServerName: "User-server-1",
-		RunMode: "dev",
+		RunMode:    "dev",
 	}
 	req := httplib.Get("http://beego.me/")
 	// only work for this request, or using SetDefaultSetting to support all requests
