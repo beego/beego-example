@@ -20,7 +20,7 @@ type UserController struct {
 	web.Controller
 }
 
-func (u *UserController) HelloWorld()  {
+func (u *UserController) HelloWorld() {
 	u.Ctx.WriteString("hello, world")
 }
 

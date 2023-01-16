@@ -1,4 +1,4 @@
-// Copyright 2020 
+// Copyright 2020
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -39,9 +39,8 @@ func main() {
 	})
 
 	req := httplib.Get("http://beego.me")
-	
-	// or req.AddFilters(myFilter)
 
+	// or req.AddFilters(myFilter)
 
 	resp, err := req.Response()
 	if err != nil {

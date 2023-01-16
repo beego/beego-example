@@ -16,15 +16,16 @@ package main
 
 import (
 	"github.com/beego/beego/v2/client/httplib"
+	"github.com/beego/beego/v2/client/httplib/filter/log"
 	"github.com/beego/beego/v2/core/logs"
 )
 
 func main() {
-	resp, err := httplib.Get("http://beego.me/").Debug(true).Response()
+	httplib.AddDefaultFilter(log.NewFilterChainBuilder().FilterChain)
+	resp, err := httplib.Get("http://beego.gocn.vip/").Response()
 	if err != nil {
 		logs.Error(err)
 
 	}
-
 	logs.Info(resp)
 }

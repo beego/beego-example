@@ -1,4 +1,4 @@
-// Copyright 2020 
+// Copyright 2020
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ func main() {
 	}
 	logs.RegisterFormatter("pattern", f)
 
-	_ = logs.SetLogger("console",`{"formatter": "pattern"}`)
+	_ = logs.SetLogger("console", `{"formatter": "pattern"}`)
 
 	logs.Info("hello, world")
 }

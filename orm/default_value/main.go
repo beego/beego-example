@@ -1,4 +1,4 @@
-// Copyright 2020 
+// Copyright 2020
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ func main() {
 	orm.AddGlobalFilterChain(builder.FilterChain)
 	o := orm.NewOrm()
 	_, _ = o.Insert(&User{
-		ID: 1,
+		ID:   1,
 		Name: "Tom",
 	})
 }
